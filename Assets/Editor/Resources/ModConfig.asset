@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615501dbe4f3fe94fbf4b564abb10237, type: 3}
+  m_Name: ModConfig
+  m_EditorClassIdentifier: 
+  id: eightTilesPanic
+  title: Eight Tiles Panic
+  author: jimmythelynx
+  description: "Eight Tiles Panic 1.0\n\n\nModule ID: eightTilesPanic\n\nCreated by:
+    jimmythelynx\n\nManual: \nRepository: \n\nSounds from freesound.org:\n\u201ELaser\u201C
+    by Daleonfire (daleaudio.com, Dale Grins).\n\u201EAscending Tritone Sequence\u201C
+    by paulnorthyorks."
+  version: 1.0
+  outputFolder: build
+  previewImage: {fileID: 2800000, guid: 4dd4825b13ca5478c83dce1a5e0d296a, type: 3}
