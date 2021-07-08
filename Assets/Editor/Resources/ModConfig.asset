@@ -14,15 +14,16 @@ MonoBehaviour:
   id: eightTilesPanic
   title: Eight Tiles Panic
   author: jimmythelynx
-  description: "Eight Tiles Panic 1.0\nThere is an alien invasion going on in the
+  description: "Eight Tiles Panic 1.0.1\nThere is an alien invasion going on in the
     neighborhood.\nTo solve the module tap or hold 5 tiles in the correct order, based
     on the chaos in the streets.\n\nThis was originally planned to be released for
     Ktane Modding Jam #1 (Boardgames) but I didn\u2019t got it finished in time. The
     module is based off a small tile-laying game called \u201ENine Tiles Panic\u201C
     which I never played but felt it looked cool.\n\nModule ID: eightTilesPanic\n\nCreated
-    by: jimmythelynx\n\nManual: \nRepository: https://github.com/jimmythelynx/EightTilesPanic\n\nSounds
-    from freesound.org:\n\u201ELaser\u201C by Daleonfire (daleaudio.com, Dale Grins).\n\u201EAscending
-    Tritone Sequence\u201C by paulnorthyorks."
-  version: 1.0
+    by: jimmythelynx\n\nManual: https://ktane.timwi.de/HTML/Eight%20Tiles%20Panic.html\nRepository:
+    https://github.com/jimmythelynx/EightTilesPanic\n\nSounds from freesound.org:\n\u201ELaser\u201C
+    by Daleonfire (daleaudio.com, Dale Grins).\n\u201EAscending Tritone Sequence\u201C
+    by paulnorthyorks."
+  version: 1.0.1
   outputFolder: build
   previewImage: {fileID: 2800000, guid: 4dd4825b13ca5478c83dce1a5e0d296a, type: 3}
