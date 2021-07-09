@@ -29,7 +29,7 @@ public class eightTilesPanic_Scr : MonoBehaviour {
     private int[,] itemsOnSideStreet = new int[3, 5]; // [side street 0 to 2, item]
     
     private int[,] streetTiles = new int[10, 5] {
-        {0, 1, 3, 4, 7}, {0, 1, 3, 2, 5}, {0, 2, 5, 6, 7}, {7, 6, 3, 2, 5}, {0, 2, 3, 6, 7}, {4, 3, 2, 5, 6}, {4, 3, 1, 0, 2}, {0, 1, 3, 6, 5}, {0, 1, 3, 6, 7}, {1, 0, 2, 3, 6}
+        {0, 1, 3, 4, 7}, {0, 1, 3, 2, 5}, {0, 2, 5, 6, 7}, {7, 6, 3, 2, 5}, {0, 2, 3, 6, 7}, {4, 3, 2, 5, 6}, {4, 3, 1, 0, 2}, {0, 1, 3, 6, 5}, {7, 6, 3, 1, 0}, {1, 0, 2, 3, 6}
     };
 
     private int[,,] sideStreets = new int[10, 3, 3] { // [main street, side streets 1-3, tiles of side street 1-3], -1 means not present
