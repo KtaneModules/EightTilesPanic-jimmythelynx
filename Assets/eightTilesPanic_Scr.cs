@@ -536,4 +536,49 @@ public class eightTilesPanic_Scr : MonoBehaviour {
         }
         StopCoroutine("buttonAnimation");
     }
+
+    #pragma warning disable 414
+    private readonly string TwitchHelpMessage = @"Use <!{0} hold TM> to hold the top-middle button. Use <!{0} tap BR> to tap the bottom-right button. Commands can be chained with commas.";
+    #pragma warning restore 414
+
+    IEnumerator ProcessTwitchCommand(string command)
+    {
+
+        string[] commands = command.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim().ToUpperInvariant()).ToArray();
+        string[] coords = { "TL", "TM", "ML", "MM", "MR", "BL", "BM", "BR" };
+        Match[] matches = commands.Select(x => Regex.Match(x, @"^(TAP|HOLD)\s+([TMB][LM]|[MB][LMR])$")).ToArray();
+        for (int i = 0; i < matches.Length; i++)
+            if (!matches[i].Success)
+            {
+                yield return "sendtochaterror Invalid command at position " + (i + 1);
+                yield break;
+            }
+        yield return null;
+        foreach (Match match in matches)
+        {
+            tiles[Array.IndexOf(coords, match.Groups[2].Value)].OnInteract();
+            yield return new WaitForSeconds(0.25f);
+            if (match.Groups[1].Value == "HOLD")
+                while (timePassed < 0.6f)
+                    yield return null;
+            tiles[Array.IndexOf(coords, match.Groups[2].Value)].OnInteractEnded();
+            yield return new WaitForSeconds(0.25f);
+        }
+    }
+
+    IEnumerator TwitchHandleForcedSolve()
+    {
+        int[] correctTiles = Enumerable.Range(0, 5).Select(x => streetTiles[streetToUse, x]).ToArray();
+        for (int i = stage; i < 5; i++)
+        {
+            tiles[correctTiles[i]].OnInteract();
+            yield return new WaitForSeconds(0.25f);
+            if (correctRules[ruleAtTile[i]])
+                while (timePassed < 0.6f)
+                    yield return null; //I would return true here, but this results in the autosolver sounding terrible with multiple mods. Deal with it, eXish
+            tiles[correctTiles[i]].OnInteractEnded();
+            yield return new WaitForSeconds(0.25f);
+        }
+        yield return null;
+    }
 }
