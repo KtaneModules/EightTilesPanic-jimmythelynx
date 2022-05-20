@@ -59,6 +59,7 @@ public class eightTilesPanic_Scr : MonoBehaviour {
 
     private string[] interactionLog = new string[5];
 
+    private bool? tpHolding = null;
 
     void Awake()
     {
@@ -391,7 +392,7 @@ public class eightTilesPanic_Scr : MonoBehaviour {
         buttonHeld = false;
         StartCoroutine(ButtonAnimation(lastButtonPressed));
         if (wrongButtonPressed) {return;}
-        if (timePassed >= 0.6f)
+        if (timePassed >= 0.6f || tpHolding == true)
         {
             Debug.LogFormat("[Eight Tiles Panic #{0}] You released after {1} seconds: That was a HOLD.", moduleId, timePassed);
             if (correctRules[ruleAtTile[stage]]) //if the rule at the tile = to the stage is TRUE
@@ -538,15 +539,15 @@ public class eightTilesPanic_Scr : MonoBehaviour {
     }
 
     #pragma warning disable 414
-    private readonly string TwitchHelpMessage = @"Use <!{0} hold TM> to hold the top-middle button. Use <!{0} tap BR> to tap the bottom-right button. Commands can be chained with commas.";
+    private readonly string TwitchHelpMessage = @"Use <!{0} hold TM> to hold the top-middle button. Use <!{0} tap BR> to tap the bottom-right button. Commands can be chained with commas. Abbreviate tap or hold with T or H.";
     #pragma warning restore 414
 
     IEnumerator ProcessTwitchCommand(string command)
     {
 
-        string[] commands = command.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim().ToUpperInvariant()).ToArray();
+        string[] commands = command.Split(",;".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim().ToUpperInvariant()).ToArray();
         string[] coords = { "TL", "TM", "ML", "MM", "MR", "BL", "BM", "BR" };
-        Match[] matches = commands.Select(x => Regex.Match(x, @"^(TAP|HOLD)\s+([TMB][LM]|[MB][LMR])$")).ToArray();
+        Match[] matches = commands.Select(x => Regex.Match(x, @"^(T(?:AP)?|H(?:OLD)?)\s+([TMB][LM]|[MB][LMR])$")).ToArray();
         for (int i = 0; i < matches.Length; i++)
             if (!matches[i].Success)
             {
@@ -558,7 +559,9 @@ public class eightTilesPanic_Scr : MonoBehaviour {
         {
             tiles[Array.IndexOf(coords, match.Groups[2].Value)].OnInteract();
             yield return new WaitForSeconds(0.25f);
-            if (match.Groups[1].Value == "HOLD")
+            tpHolding = match.Groups[1].Value[0] == 'H';
+            Debug.Log(tpHolding);
+            if (tpHolding == true)
                 while (timePassed < 0.6f)
                     yield return null;
             tiles[Array.IndexOf(coords, match.Groups[2].Value)].OnInteractEnded();
@@ -573,7 +576,8 @@ public class eightTilesPanic_Scr : MonoBehaviour {
         {
             tiles[correctTiles[i]].OnInteract();
             yield return new WaitForSeconds(0.25f);
-            if (correctRules[ruleAtTile[i]])
+            tpHolding = correctRules[ruleAtTile[i]];
+            if (tpHolding == true)
                 while (timePassed < 0.6f)
                     yield return null; //I would return true here, but this results in the autosolver sounding terrible with multiple mods. Deal with it, eXish
             tiles[correctTiles[i]].OnInteractEnded();
